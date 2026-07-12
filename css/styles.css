@@ -430,14 +430,16 @@ body.light-mode .hero::before {
 
 .about__content {
   display: grid;
-  grid-template-columns: 1fr 1.5fr; /* Foto na esquerda, info na direita */
+  grid-template-columns: 0.8fr 2fr; /* Foto na esquerda (menor), info na direita */
   gap: 4rem;
-  align-items: start;
+  align-items: center;
 }
 
 .about__photo {
   position: relative;
   width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
   aspect-ratio: 3/4;
   border-radius: 1rem;
   overflow: hidden;
