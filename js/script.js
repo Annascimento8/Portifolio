@@ -503,7 +503,6 @@ function init() {
 
         // Links
         document.getElementById('modalGithub').href = proj.github;
-        document.getElementById('modalLive').href = proj.live;
 
         modal.showModal();
         modal.classList.add('is-open');
