@@ -505,31 +505,9 @@ function init() {
         });
     }
 
-    async function loadProjects() {
-        try {
-            const response = await fetch('/api/content?type=project', {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('API indisponível');
-            }
-
-            const items = await response.json();
-            const normalized = Array.isArray(items) ? items.map((item, index) => normalizeProject(item, index)) : [];
-
-            if (normalized.length) {
-                renderProjects(normalized);
-                return;
-            }
-
-            throw new Error('Sem projetos retornados');
-        } catch (error) {
-            console.warn('Usando conteúdo estático como fallback:', error.message);
-            renderProjects(fallbackProjects.map((project, index) => normalizeProject(project, index)));
-        }
+    function loadProjects() {
+        const normalized = fallbackProjects.map((project, index) => normalizeProject(project, index));
+        renderProjects(normalized);
     }
 
     function openModal(proj) {
