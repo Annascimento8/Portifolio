@@ -390,13 +390,40 @@ body.light-mode .hero::before {
 }
 
 @media (max-width: 768px) {
-  .hero { padding: 8rem 1.5rem 2rem; }
-  .stat-item { flex: 1 1 100%; }
+  .hero {
+    padding: 7rem 1.25rem 1.5rem;
+    min-height: 78vh;
+  }
+  .hero__title {
+    margin-bottom: 1.25rem;
+    line-height: 0.96;
+  }
+  .hero__desc {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    max-width: 28rem;
+  }
+  .hero__stats {
+    margin: 1rem 1rem 0;
+    padding: 1.25rem;
+    gap: 1rem;
+    border-radius: 0.85rem;
+  }
+  .stat-item {
+    flex: 1 1 100%;
+    gap: 0.75rem;
+  }
+  .stat-item i {
+    font-size: 1.5rem;
+  }
+  .stat-text {
+    font-size: 0.72rem;
+  }
 }
 
 /*=============== BIG MARQUEE ===============*/
 .marquee-section {
-  padding: 5rem 0;
+  padding: 3rem 0;
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
   overflow: hidden;
@@ -418,14 +445,14 @@ body.light-mode .hero::before {
 
 /*=============== ABOUT ===============*/
 .about {
-  padding: 10rem 4rem;
+  padding: 8rem 4rem;
 }
 
 .about__title {
   font-family: var(--font-heading);
   font-size: 8vw;
   line-height: 0.9;
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
 }
 
 .about__content {
@@ -505,14 +532,34 @@ body.light-mode .hero::before {
 }
 
 @media (max-width: 768px) {
-  .about { padding: 6rem 1.5rem; }
-  .about__content { grid-template-columns: 1fr; gap: 3rem; }
-  .about__text { font-size: 1.2rem; }
+  .about {
+    padding: 5rem 1.25rem;
+  }
+  .about__content {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+  }
+  .about__title {
+    margin-bottom: 2rem;
+  }
+  .about__photo {
+    max-width: 260px;
+  }
+  .about__info {
+    gap: 1.5rem;
+  }
+  .about__text {
+    font-size: 1.08rem;
+    line-height: 1.7;
+  }
+  .skill-box {
+    padding: 1.1rem 1.25rem;
+  }
 }
 
 /*=============== WORKS (CARDS) ===============*/
 .works {
-  padding: 10rem 4rem;
+  padding: 8rem 4rem;
 }
 
 .works__header {
@@ -529,8 +576,8 @@ body.light-mode .hero::before {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1.75rem;
 }
 
 .project-card {
@@ -589,9 +636,9 @@ body.light-mode .hero::before {
   font-size: 0.95rem;
   color: var(--text-muted);
   line-height: 1.6;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   display: -webkit-box;
-  -webkit-line-clamp: 6;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -794,9 +841,19 @@ body.light-mode .hero::before {
 .p-gradient-8 { background: radial-gradient(circle at center, #dc2626, #050505); }
 
 @media (max-width: 768px) {
-  .works { padding: 4rem 1.5rem; }
-  .works__title { font-size: 8vw; }
-  .modal__links { flex-direction: column; }
+  .works {
+    padding: 4rem 1.25rem;
+  }
+  .works__title {
+    font-size: 8vw;
+  }
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .modal__links {
+    flex-direction: column;
+  }
 }
 
 /*=============== GLOBAL SECTION TITLE ===============*/
@@ -806,15 +863,15 @@ body.light-mode .hero::before {
   font-weight: 800;
   line-height: 1;
   text-transform: uppercase;
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
 }
 @media (max-width: 768px) {
-  .section-title { font-size: 10vw; }
+  .section-title { font-size: 10vw; margin-bottom: 2rem; }
 }
 
 /*=============== TIMELINE ===============*/
 .timeline-section {
-  padding: 10rem 4rem;
+  padding: 8rem 4rem;
 }
 .timeline {
   position: relative;
@@ -889,7 +946,7 @@ body.light-mode .hero::before {
 
 /*=============== FEATURED PROJECT ===============*/
 .featured-project {
-  padding: 10rem 4rem;
+  padding: 8rem 4rem;
 }
 .featured__header {
   display: flex;
@@ -971,7 +1028,7 @@ body.light-mode .hero::before {
 
 /*=============== CERTIFICATES ===============*/
 .certificates {
-  padding: 10rem 4rem;
+  padding: 8rem 4rem;
 }
 .certificates-grid {
   display: grid;
@@ -1014,7 +1071,7 @@ body.light-mode .hero::before {
 
 /*=============== GITHUB STATS ===============*/
 .github-stats {
-  padding: 10rem 4rem;
+  padding: 8rem 4rem;
 }
 .github-grid {
   display: flex;
@@ -1033,7 +1090,7 @@ body.light-mode .hero::before {
 
 /*=============== FOOTER / CONTACT ===============*/
 .footer {
-  padding: 10rem 4rem 2rem;
+  padding: 8rem 4rem 2rem;
 }
 
 .footer__container {
@@ -1069,9 +1126,22 @@ body.light-mode .hero::before {
 }
 
 @media (max-width: 768px) {
-  .footer { padding: 6rem 1.5rem 2rem; }
-  .footer__title { font-size: 15vw; }
-  .footer__bottom { flex-direction: column; gap: 1rem; align-items: flex-start; }
+  .footer {
+    padding: 5rem 1.25rem 2rem;
+  }
+  .footer__title {
+    font-size: 15vw;
+    margin-bottom: 2.5rem;
+  }
+  .footer__buttons {
+    gap: 0.85rem;
+    margin-bottom: 4rem;
+  }
+  .footer__bottom {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
 }
 
 /*=============== CHATBOT ===============*/
