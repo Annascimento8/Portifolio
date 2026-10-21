@@ -1155,7 +1155,7 @@ body.light-mode .cert-card {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 2rem;
-  max-width: 50rem;
+  max-width: 56rem;
   margin: 0 auto;
 }
 .cert-card {
@@ -1163,7 +1163,8 @@ body.light-mode .cert-card {
   backdrop-filter: blur(10px);
   border: 1px solid var(--border-color);
   border-radius: 1rem;
-  padding: 2rem;
+  min-height: 19rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1176,12 +1177,18 @@ body.light-mode .cert-card {
 }
 .cert-card__icon {
   font-size: 3rem;
+  line-height: 1;
   color: var(--accent-color);
   margin-bottom: 1rem;
 }
 .cert-card h3 {
   font-family: var(--font-heading);
   font-size: 1.2rem;
+  line-height: 1.2;
+  min-height: 3.6em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 0.5rem;
 }
 .cert-card p {
@@ -1190,7 +1197,12 @@ body.light-mode .cert-card {
 }
 @media (max-width: 768px) {
   .certificates { padding: 4rem 1.5rem; }
+}
+@media (max-width: 900px) {
   .certificates-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 480px) {
+  .certificates-grid { grid-template-columns: 1fr; }
 }
 
 /*=============== GITHUB STATS ===============*/
