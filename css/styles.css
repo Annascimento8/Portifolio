@@ -680,7 +680,7 @@ body.light-mode .stat-item i {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.75rem;
 }
 
@@ -964,6 +964,12 @@ body.light-mode .cert-card {
   }
   .modal__links {
     flex-direction: column;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
