@@ -260,7 +260,7 @@ function init() {
 
 
     /*=============== PROJECTS DATABASE & MODAL LOGIC ===============*/
-    const projects = [
+    const fallbackProjects = [
         {
             id: 1,
             title: "GESTÃO DE LOJA",
@@ -403,6 +403,7 @@ function init() {
 
     const projectsGrid = document.querySelector('.projects-grid');
     const modal = document.getElementById('projectModal');
+    const closeBtn = document.querySelector('.modal__close');
 
     const techIconMap = {
         'java': 'bxl-java',
@@ -433,16 +434,48 @@ function init() {
         'mysql': 'bx-data'
     };
 
+    function normalizeProject(item, index = 0) {
+        const description = item.description || item.short_description || '';
+        const shortDesc = item.short_description || item.desc || description;
+        const role = item.role || (Array.isArray(item.tags) ? item.tags.join(' / ') : 'FULLSTACK');
+        const techs = Array.isArray(item.techs) ? item.techs : (Array.isArray(item.tags) ? item.tags : []);
+        const features = Array.isArray(item.features) ? item.features : (description ? [description] : []);
+        const imgClass = item.imgClass || `p-gradient-${(index % 8) + 1}`;
+        const github = item.github_url || item.github || '#';
+        const live = item.live_url || item.live || '#';
+        const imgSrc = item.image_url || item.imgSrc || '';
+
+        return {
+            ...item,
+            id: item.id || index + 1,
+            title: item.title || 'Projeto sem título',
+            role,
+            desc: description,
+            shortDesc,
+            features,
+            techs,
+            imgClass,
+            imgSrc,
+            github,
+            live,
+            bgSize: item.bgSize || 'cover',
+            bgPosition: item.bgPosition || 'top center'
+        };
+    }
+
     function getTechIconsHTML(techs) {
         return techs.map(t => {
-            const cls = techIconMap[t.toLowerCase()] || 'bx-code-alt';
+            const cls = techIconMap[String(t).toLowerCase()] || 'bx-code-alt';
             return `<i class='bx ${cls}' title='${t}'></i>`;
         }).join('');
     }
 
-    // Render Cards
-    if (projectsGrid) {
-        projects.forEach(proj => {
+    function renderProjects(projects) {
+        if (!projectsGrid) return;
+
+        projectsGrid.innerHTML = '';
+
+        projects.forEach((proj) => {
             const card = document.createElement('div');
             card.className = 'project-card hover-this';
 
@@ -460,23 +493,48 @@ function init() {
                             ${proj.role}
                         </div>
                         <div class="project-card__icons">
-                            ${getTechIconsHTML(proj.techs)}
-                            <a href="${proj.github}" target="_blank"><i class='bx bxl-github'></i></a>
+                            ${getTechIconsHTML(proj.techs || [])}
+                            <a href="${proj.github || '#'}" target="_blank"><i class='bx bxl-github'></i></a>
                         </div>
                     </div>
                 </div>
             `;
 
-            // Open Modal on click
             card.addEventListener('click', () => openModal(proj));
             projectsGrid.appendChild(card);
         });
     }
 
-    // Modal Logic
-    const closeBtn = document.querySelector('.modal__close');
+    async function loadProjects() {
+        try {
+            const response = await fetch('/api/content?type=project', {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('API indisponível');
+            }
+
+            const items = await response.json();
+            const normalized = Array.isArray(items) ? items.map((item, index) => normalizeProject(item, index)) : [];
+
+            if (normalized.length) {
+                renderProjects(normalized);
+                return;
+            }
+
+            throw new Error('Sem projetos retornados');
+        } catch (error) {
+            console.warn('Usando conteúdo estático como fallback:', error.message);
+            renderProjects(fallbackProjects.map((project, index) => normalizeProject(project, index)));
+        }
+    }
 
     function openModal(proj) {
+        if (!modal) return;
+
         document.getElementById('modalTitle').textContent = proj.title;
 
         const modalImg = document.getElementById('modalImage');
@@ -489,42 +547,40 @@ function init() {
             modalImg.style.backgroundImage = '';
         }
 
-        document.getElementById('modalAbout').innerHTML = proj.desc;
+        document.getElementById('modalAbout').innerHTML = proj.desc || proj.shortDesc || '';
 
-        // Badges
-        const roles = proj.role.split('/').map(r => r.trim());
-        document.getElementById('modalBadges').innerHTML = roles.map(r => `<span class="modal__badge">${r}</span>`).join('');
+        const roles = String(proj.role || '').split('/').map(r => r.trim()).filter(Boolean);
+        document.getElementById('modalBadges').innerHTML = roles.length ? roles.map(r => `<span class="modal__badge">${r}</span>`).join('') : '<span class="modal__badge">FULLSTACK</span>';
 
-        // Features
-        document.getElementById('modalFeatures').innerHTML = proj.features.map(f => `<li>${f}</li>`).join('');
+        const features = Array.isArray(proj.features) ? proj.features : [];
+        document.getElementById('modalFeatures').innerHTML = features.length ? features.map(f => `<li>${f}</li>`).join('') : '<li>Descrição disponível em breve.</li>';
 
-        // Techs
-        document.getElementById('modalTechs').innerHTML = proj.techs.map(t => `<span class="modal__tech-tag">${t}</span>`).join('');
+        const techs = Array.isArray(proj.techs) ? proj.techs : [];
+        document.getElementById('modalTechs').innerHTML = techs.length ? techs.map(t => `<span class="modal__tech-tag">${t}</span>`).join('') : '<span class="modal__tech-tag">Web</span>';
 
-        // Links
-        document.getElementById('modalGithub').href = proj.github;
+        document.getElementById('modalGithub').href = proj.github || '#';
 
         modal.showModal();
         modal.classList.add('is-open');
-        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        document.body.style.overflow = 'hidden';
     }
 
     function closeModal() {
+        if (!modal) return;
         modal.classList.remove('is-open');
         setTimeout(() => {
             modal.close();
             document.body.style.overflow = '';
-        }, 300); // match CSS transition
+        }, 300);
     }
 
     if (closeBtn) {
         closeBtn.addEventListener('click', closeModal);
     }
 
-    // Close when clicking outside
     if (modal) {
         modal.addEventListener('click', (e) => {
-            const dialogDimensions = modal.getBoundingClientRect()
+            const dialogDimensions = modal.getBoundingClientRect();
             if (
                 e.clientX < dialogDimensions.left ||
                 e.clientX > dialogDimensions.right ||
@@ -536,7 +592,7 @@ function init() {
         });
     }
 
-
+    loadProjects();
 
     /*=============== GSAP ANIMATIONS ===============*/
 

@@ -16,13 +16,65 @@
 }
 
 body.light-mode {
-  --bg-color: #f4f4f5;
-  --bg-secondary: #e4e4e7;
-  --text-color: #050505;
-  --text-muted: #555555;
-  --accent-color: #721727; /* Darker Wine for light mode */
-  --border-color: rgba(0,0,0,0.08);
-  --card-bg: rgba(255, 255, 255, 0.6); /* Glassmorphism light */
+  --bg-color: #f5f1eb;
+  --bg-secondary: #efe7df;
+  --text-color: #171717;
+  --text-muted: #5a524d;
+  --accent-color: #7a1f2d;
+  --border-color: rgba(23,23,23,0.09);
+  --card-bg: rgba(255, 255, 255, 0.72);
+  background: #f5f1eb !important;
+  background-color: #f5f1eb !important;
+  color: #171717;
+}
+
+body.light-mode .header {
+  mix-blend-mode: normal;
+  color: var(--text-color);
+}
+
+body.light-mode .header a,
+body.light-mode .header button {
+  color: var(--text-color) !important;
+}
+
+body.light-mode .nav__link::after {
+  background-color: var(--text-color);
+}
+
+body.light-mode .global-gradient {
+  background: radial-gradient(circle at 50% 50%, rgba(122, 31, 45, 0.12) 0%, rgba(245, 241, 235, 1) 68%);
+}
+
+body.light-mode #global-background {
+  background-color: #f7f1eb;
+}
+
+body.light-mode .global-grid {
+  background-image: 
+    linear-gradient(rgba(122, 31, 45, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(122, 31, 45, 0.04) 1px, transparent 1px);
+  opacity: 0.9;
+}
+
+body.light-mode .global-lines {
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(122, 31, 45, 0.04) 50%, rgba(122, 31, 45, 0.04));
+}
+
+body.light-mode .global-grid,
+body.light-mode .global-lines,
+body.light-mode .cyber-grid,
+body.light-mode .cyber-lines {
+  opacity: 0.25;
+}
+
+body.light-mode .marquee-section {
+  background: linear-gradient(135deg, rgba(98, 20, 35, 0.96), rgba(122, 31, 45, 0.82));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+body.light-mode .marquee-text__inner {
+  opacity: 0.95;
 }
 
 /*=============== RESET ===============*/
@@ -186,7 +238,20 @@ body.light-mode .global-gradient {
   font-weight: 500;
   letter-spacing: 1px;
   white-space: nowrap;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.light-mode .marquee-btn {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(23, 23, 23, 0.14);
+  box-shadow: 0 8px 20px rgba(23, 23, 23, 0.04);
+  color: var(--text-color);
+}
+
+body.light-mode .marquee-btn:hover {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+  border-color: var(--text-color);
 }
 
 .marquee-btn__inner {
@@ -213,6 +278,17 @@ body.light-mode .global-gradient {
 .marquee-btn--light:hover {
   background-color: transparent;
   color: var(--text-color);
+}
+
+body.light-mode .marquee-btn--light {
+  background-color: var(--bg-secondary);
+  color: var(--text-color);
+  border-color: rgba(23, 23, 23, 0.12);
+}
+
+body.light-mode .marquee-btn--light:hover {
+  background-color: var(--text-color);
+  color: var(--bg-color);
 }
 
 @keyframes marquee {
@@ -246,11 +322,24 @@ body.light-mode .global-gradient {
 }
 
 body.light-mode .hero::before {
-  background: linear-gradient(to right, rgba(244, 244, 245, 0.9) 0%, rgba(244, 244, 245, 0.4) 100%), url('../assets/apotheosis-bg.png');
+  background: linear-gradient(to right, rgba(245, 241, 235, 0.82) 0%, rgba(245, 241, 235, 0.46) 100%), url('../assets/apotheosis-bg.png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
   opacity: 0.9;
+}
+
+body.light-mode .hero {
+  background: #f5f1eb;
+}
+body.light-mode .about,
+body.light-mode .timeline-section,
+body.light-mode .featured-project,
+body.light-mode .works,
+body.light-mode .certificates,
+body.light-mode .github-stats,
+body.light-mode .footer {
+  background: rgba(245, 241, 235, 0.7);
 }
 
 /* Cyber Overlays (Grid, Lines, Particles) */
@@ -349,6 +438,15 @@ body.light-mode .hero::before {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
+body.light-mode .hero__stats,
+body.light-mode .skill-box,
+body.light-mode .project-card,
+body.light-mode .cert-card,
+body.light-mode .featured__content,
+body.light-mode .timeline__content {
+  box-shadow: 0 14px 28px rgba(23, 23, 23, 0.05);
+}
+
 .stat-item {
   display: flex;
   align-items: center;
@@ -360,6 +458,12 @@ body.light-mode .hero::before {
   font-size: 2rem;
   color: #ff003c;
   text-shadow: 0 0 10px rgba(255, 0, 60, 0.5);
+}
+
+body.light-mode .stat-item i {
+  opacity: 0.8;
+  color: #7a1f2d;
+  text-shadow: 0 0 6px rgba(122, 31, 45, 0.14);
 }
 
 .stat-text {
@@ -591,6 +695,13 @@ body.light-mode .hero::before {
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
   position: relative;
   cursor: pointer;
+}
+
+body.light-mode .project-card,
+body.light-mode .skill-box,
+body.light-mode .cert-card {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(23, 23, 23, 0.08);
 }
 
 .project-card:hover {

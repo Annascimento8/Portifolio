@@ -1,0 +1,18 @@
+[
+  {
+    "id": "brasidente",
+    "type": "project",
+    "title": "Brasidente",
+    "description": "Jogo estratégico desenvolvido em Python para simular decisões políticas e econômicas.",
+    "short_description": "Jogo estratégico desenvolvido em Python para simular decisões políticas e econômicas.",
+    "github_url": "https://github.com/Camilly-reis/Brasidente",
+    "live_url": "",
+    "image_url": "assets/images/Brasidente.jpeg",
+    "tags": [
+      "Python",
+      "Pygame"
+    ],
+    "featured": true,
+    "status": "approved"
+  }
+]
