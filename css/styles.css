@@ -1147,10 +1147,16 @@ body.light-mode .cert-card {
 .certificates {
   padding: 8rem 4rem;
 }
+.certificates__container,
+.github__container {
+  text-align: center;
+}
 .certificates-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 2rem;
+  max-width: 50rem;
+  margin: 0 auto;
 }
 .cert-card {
   background: var(--card-bg);
@@ -1184,6 +1190,7 @@ body.light-mode .cert-card {
 }
 @media (max-width: 768px) {
   .certificates { padding: 4rem 1.5rem; }
+  .certificates-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /*=============== GITHUB STATS ===============*/
